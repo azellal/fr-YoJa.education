@@ -119,6 +119,48 @@ export const curriculum: GradeData[] = [
         ]
       },
       {
+        id: '1a-stories',
+        title: 'Le Coin des Histoires',
+        lessons: [
+          {
+            id: '1a-story-1',
+            title: 'Le Petit Lapin qui Partageait',
+            description: 'Une histoire sur la générosité.',
+            icon: 'BookOpen',
+            storyContent: {
+              text: 'Il était une fois un petit lapin nommé Frisquet. Il avait beaucoup de carottes délicieuses. Un jour, il vit son ami l\'écureuil qui avait très faim. Frisquet décida de partager ses carottes. Ils mangèrent ensemble et furent très heureux.',
+              moral: 'Partager avec ses amis rend le cœur joyeux !',
+              image: 'https://images.unsplash.com/photo-1591073113125-e46713c829ed?w=800&q=80'
+            },
+            exercises: [
+              {
+                id: '1a-s1-e1',
+                type: 'multiple-choice',
+                question: 'Qu\'est-ce que Frisquet a partagé ?',
+                options: ['Ses pommes', 'Ses carottes', 'Ses jouets'],
+                correctAnswer: 'Ses carottes'
+              }
+            ]
+          },
+          {
+            id: '1a-video-1',
+            title: 'La Politesse en Chanson',
+            description: 'Apprendre à dire "Bonjour" et "Merci".',
+            icon: 'Video',
+            videoUrl: 'https://www.youtube.com/embed/fCgIe2kL6Uo',
+            exercises: [
+              {
+                id: '1a-v1-e1',
+                type: 'multiple-choice',
+                question: 'Que faut-il dire quand on reçoit un cadeau ?',
+                options: ['Bonjour', 'Merci', 'Au revoir'],
+                correctAnswer: 'Merci'
+              }
+            ]
+          }
+        ]
+      },
+      {
         id: '1a-gram',
         title: 'Grammaire : Les Bases',
         lessons: [
@@ -395,6 +437,32 @@ export const curriculum: GradeData[] = [
                 question: 'Écoute bien. Qu\'est-ce qui est bleu ?',
                 options: ['La pomme', 'Le pantalon', 'Le ciel'],
                 correctAnswer: 'Le pantalon'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: '2a-stories',
+        title: 'Coin des Histoires',
+        lessons: [
+          {
+            id: '2a-story-1',
+            title: 'Le Lion et la Souris',
+            description: 'Une fable sur l\'entraide.',
+            icon: 'BookOpen',
+            storyContent: {
+              text: 'Un lion épargna une petite souris. Plus tard, le lion fut pris dans un filet de chasseur. La petite souris rongea les cordes et libéra le lion. Elle lui montra que même les plus petits peuvent aider les plus grands.',
+              moral: 'On a souvent besoin d\'un plus petit que soi.',
+              image: 'https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=800&q=80'
+            },
+            exercises: [
+              {
+                id: '2a-s1-e1',
+                type: 'multiple-choice',
+                question: 'Qui a sauvé le lion ?',
+                options: ['Le chasseur', 'La souris', 'Un autre lion'],
+                correctAnswer: 'La souris'
               }
             ]
           }

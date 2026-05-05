@@ -43,6 +43,9 @@ import {
   ShieldCheck,
   Grid3X3,
   Share2,
+  FileText,
+  Play,
+  Video,
   LucideIcon
 } from 'lucide-react';
 import { curriculum } from './data/curriculum';
@@ -88,7 +91,8 @@ const IconMap: Record<string, LucideIcon> = {
   UserCheck,
   Medal,
   Volume2,
-  Grid3X3
+  Grid3X3,
+  Video
 };
 
 // Creative Logo Component
@@ -155,6 +159,7 @@ export default function App() {
   const [totalPoints, setTotalPoints] = useState(0);
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [isFinished, setIsFinished] = useState(false);
+  const [isViewingContent, setIsViewingContent] = useState(false);
 
   const schoolAmbientRef = useRef<HTMLAudioElement | null>(null);
   const gameAmbientRef = useRef<HTMLAudioElement | null>(null);
@@ -810,6 +815,7 @@ export default function App() {
                           if (unlocked) {
                             setSelectedLesson(lesson);
                             setSessionScore(0);
+                            setIsViewingContent(!!(lesson.storyContent || lesson.videoUrl));
                           }
                         }}
                         className={`bg-white p-6 rounded-[2rem] border-2 flex flex-col items-start gap-6 transition-all group relative
@@ -848,7 +854,72 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               className="max-w-3xl mx-auto space-y-10"
             >
-              {!isFinished ? (
+              {isViewingContent ? (
+                <div className="bg-white p-10 md:p-14 rounded-[3rem] border-2 border-slate-100 shadow-2xl shadow-slate-200/50 space-y-8 relative overflow-hidden">
+                  <div className="flex items-center justify-between mb-6">
+                    <button 
+                      onClick={() => setSelectedLesson(null)}
+                      className="w-12 h-12 bg-white rounded-2xl border-2 border-slate-100 flex items-center justify-center text-slate-400 hover:bg-slate-50 hover:text-slate-900 transition-all font-bold group"
+                    >
+                      <XCircle size={24} />
+                    </button>
+                    <div className="bg-sky-50 px-6 py-2 rounded-2xl text-sky-600 font-black text-sm uppercase tracking-widest">
+                      {selectedLesson.videoUrl ? 'Vidéo Éducative' : 'Histoire du Jour'}
+                    </div>
+                  </div>
+
+                  <div className="text-center space-y-8">
+                    <h2 className="text-4xl font-black text-slate-900 tracking-tight">{selectedLesson.title}</h2>
+                    
+                    {selectedLesson.videoUrl && (
+                      <div className="aspect-video w-full rounded-3xl overflow-hidden shadow-2xl bg-black border-4 border-slate-900">
+                        <iframe 
+                          width="100%" 
+                          height="100%" 
+                          src={selectedLesson.videoUrl}
+                          title={selectedLesson.title}
+                          frameBorder="0" 
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                          allowFullScreen
+                        ></iframe>
+                      </div>
+                    )}
+
+                    {selectedLesson.storyContent && (
+                      <div className="space-y-8">
+                        {selectedLesson.storyContent.image && (
+                          <img 
+                            src={selectedLesson.storyContent.image} 
+                            alt={selectedLesson.title}
+                            className="w-full h-64 object-cover rounded-3xl shadow-lg"
+                          />
+                        )}
+                        <div className="prose prose-lg mx-auto text-slate-700 font-medium leading-relaxed bg-slate-50 p-8 rounded-[2rem] border-2 border-slate-100 italic">
+                          "{selectedLesson.storyContent.text}"
+                        </div>
+                        <div className="bg-amber-50 p-6 rounded-[2rem] border-2 border-amber-100 flex items-center gap-6">
+                          <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-amber-200">
+                            ✨
+                          </div>
+                          <div className="text-left">
+                            <h4 className="font-black text-amber-800 uppercase text-xs tracking-widest mb-1">La Morale</h4>
+                            <p className="text-amber-900 font-black text-lg">{selectedLesson.storyContent.moral}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    <motion.button
+                      whileHover={{ scale: 1.05, y: -4 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setIsViewingContent(false)}
+                      className="w-full py-6 bg-sky-600 text-white rounded-[2rem] font-black text-xl shadow-xl shadow-sky-500/20 flex items-center justify-center gap-3 mt-8"
+                    >
+                      <Play size={24} /> Continuer vers les exercices
+                    </motion.button>
+                  </div>
+                </div>
+              ) : !isFinished ? (
                 <>
                   <div className="flex items-center gap-6">
                     <button 

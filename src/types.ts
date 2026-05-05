@@ -18,6 +18,12 @@ export interface Lesson {
   description: string;
   exercises: Exercise[];
   icon: string;
+  videoUrl?: string;
+  storyContent?: {
+    text: string;
+    moral: string;
+    image?: string;
+  };
 }
 
 export interface Theme {
