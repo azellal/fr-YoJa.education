@@ -10,6 +10,7 @@ import {
   GraduationCap, 
   Star, 
   ChevronLeft, 
+  ChevronRight, 
   Home,
   CheckCircle2,
   XCircle,
@@ -160,6 +161,7 @@ export default function App() {
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
   const [isFinished, setIsFinished] = useState(false);
   const [isViewingContent, setIsViewingContent] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
 
   const schoolAmbientRef = useRef<HTMLAudioElement | null>(null);
   const gameAmbientRef = useRef<HTMLAudioElement | null>(null);
@@ -448,7 +450,61 @@ export default function App() {
         </AnimatePresence>
 
         <AnimatePresence mode="wait">
-          {isParentMode ? (
+          {showIntro ? (
+            <motion.div
+              key="intro-screen"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="max-w-4xl mx-auto"
+            >
+              <div className="bg-white p-8 md:p-16 rounded-[4rem] border-2 border-slate-100 shadow-3xl shadow-slate-200/40 text-center space-y-12 relative overflow-hidden">
+                {/* Brand Header */}
+                <div className="flex flex-col items-center space-y-6">
+                  <Logo className="scale-125 mb-2" />
+                  <div className="space-y-2">
+                    <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+                      Prêt pour <span className="text-sky-600 italic">l'Aventure ?</span>
+                    </h2>
+                    <p className="text-slate-500 font-medium text-lg max-w-xl mx-auto">
+                      Découvre comment YOJA transforme tes leçons en un voyage extraordinaire !
+                    </p>
+                  </div>
+                </div>
+
+                {/* Simple Video Section */}
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-sky-500 to-amber-400 rounded-[3rem] blur opacity-25 group-hover:opacity-40 transition duration-1000"></div>
+                  <div className="relative aspect-video w-full rounded-[2.8rem] overflow-hidden shadow-2xl bg-slate-900 border-8 border-white">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src="https://www.youtube.com/embed/fCgIe2kL6Uo?autoplay=0&rel=0&modestbranding=1"
+                      title="YOJA Introduction Video"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                </div>
+
+                {/* Action */}
+                <div className="pt-4">
+                  <motion.button
+                    whileHover={{ scale: 1.05, y: -4 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setShowIntro(false)}
+                    className="px-16 py-7 bg-sky-600 text-white rounded-[2.5rem] font-black text-2xl shadow-2xl shadow-sky-500/30 hover:bg-sky-500 transition-all flex items-center gap-4 mx-auto"
+                  >
+                    C'est parti ! <ChevronRight size={32} />
+                  </motion.button>
+                  <p className="mt-6 text-slate-400 font-bold text-sm uppercase tracking-widest">
+                    Entrée Gratuite • Illimitée • Amusante
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ) : isParentMode ? (
             <motion.div
               key="parent-dashboard"
               initial={{ opacity: 0, scale: 0.95 }}
